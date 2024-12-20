@@ -37,4 +37,14 @@ public class StudentContoller {
             System.out.println(e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete/{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Long id) {
+        try {
+            studentService.deleteStudent(id);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -37,4 +37,14 @@ public class AdminContoller {
             System.out.println(e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete/{adminId}")
+    public void deleteAdmin(@PathVariable("adminId") Long id) {
+        try {
+            adminService.deleteAdmin(id);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
