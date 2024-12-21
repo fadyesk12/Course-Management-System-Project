@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,15 @@ public class User {
 
     public User() {
     }
+=======
+public abstract class User {
+    private Long id;
+    private String name;
+    private String email;
+    private String password;
+
+    public User() {}
+>>>>>>> 987585c7f22c2279dded27947a9273ac9e1ca2e4
 
     public User(Long id, String name, String email, String password) {
         this.id = id;
@@ -32,6 +42,7 @@ public class User {
         this.email = email;
         this.password = password;
     }
+<<<<<<< HEAD
 
     public void setId(Long id) {
         this.id = id;
@@ -47,6 +58,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+=======
+    public User( String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+>>>>>>> 987585c7f22c2279dded27947a9273ac9e1ca2e4
     }
 
     public Long getId() {
@@ -65,4 +82,10 @@ public class User {
         return password;
     }
 
+<<<<<<< HEAD
+=======
+    public abstract String getRole();
+
+    public abstract String toString();
+>>>>>>> 987585c7f22c2279dded27947a9273ac9e1ca2e4
 }
