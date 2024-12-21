@@ -1,12 +1,11 @@
 package com.example.demo.Services;
 
 import java.util.List;
-import java.util.Optional;
+// import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Model.Admin;
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Student;
 import com.example.demo.Model.Lesson;
