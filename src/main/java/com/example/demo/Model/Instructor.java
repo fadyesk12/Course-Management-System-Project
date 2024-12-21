@@ -40,7 +40,6 @@ public class Instructor extends User {
 //    private List<Notification> notifications;
 
     public Instructor(Long id, String name, String email, String password) {
-        super(id, name, email, password);
         this.id = id;
         this.name = name;
         this.email = email;
