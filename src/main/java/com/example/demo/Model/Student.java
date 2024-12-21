@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Year;
+import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @Entity
@@ -23,17 +25,32 @@ public class Student extends User {
             generator = "student_sequence"
     )
     @Getter
+    @Column(name = "student_id")
     private Long id;
     @Getter
+    @Column(name = "student_name")
     private String name;
     @Getter
+    @Column(name = "student_email")
     private String email;
     @Getter
+    @Column(name = "student_password")
     private String password;
+
+//    @Getter
+//    @ManyToMany
+//    @JoinTable(
+//            name = "student_enrolled_courses",
+//            joinColumns = @JoinColumn(name = "student_id"),
+//            inverseJoinColumns = @JoinColumn(name = "course_id")
+//    )
 //    private List<Course> enrolledCourses;
 //    private Map<String, Double> quizScores;
 //    private Map<Assignment, String> assignmentsSubmitted;
 //    private Map<Assignment, Double> assignmentGrades;
+
+//    @Getter
+//    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Notification> notifications;
 
     public Student(Long id, String name, String email, String password)  {

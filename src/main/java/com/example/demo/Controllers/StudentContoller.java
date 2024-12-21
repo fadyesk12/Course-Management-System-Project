@@ -47,4 +47,14 @@ public class StudentContoller {
             System.out.println(e.getMessage());
         }
     }
+
+    @PutMapping("/enroll/{studentId}/{courseId}")
+    public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") Long courseId) {
+        try {
+            studentService.enrollCourse(studentId, courseId);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import com.example.demo.Model.Course;
 import com.example.demo.Model.Student;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,15 @@ public class StudentService {
             throw new IllegalStateException("Student not found.");
         }
         studentRepository.deleteById(id);
+    }
+
+    public void enrollCourse(Long studentId, Long courseId) {
+        Student student = studentRepository.findById(studentId).orElse(null);
+        // TODO: implement findById to get course
+        if (student == null) {
+            throw new IllegalStateException("Student not found.");
+        }
+        // TODO: implement functionality to enroll student in course
+
     }
 }
