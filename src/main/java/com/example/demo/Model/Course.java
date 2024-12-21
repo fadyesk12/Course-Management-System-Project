@@ -24,6 +24,7 @@ public class Course {
     private Date creationDate;
     @Getter
     private Instructor instructor;
+    @Getter
     private List<Student> enrolledStudents;
     private List<Lesson> lessons;
     private List<Quiz> quizzes;
@@ -41,6 +42,9 @@ public class Course {
 
     public void AddStudent(Student s){
         enrolledStudents.add(s);
+    }
+    public void RemoveStudent(Student s){
+        enrolledStudents.remove(s);
     }
     public void AddLesson(Lesson lesson){
         lessons.add(lesson);
