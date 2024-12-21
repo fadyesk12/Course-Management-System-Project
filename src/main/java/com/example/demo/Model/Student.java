@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Year;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @NoArgsConstructor
 @Entity
@@ -37,14 +36,14 @@ public class Student extends User {
     @Column(name = "student_password")
     private String password;
 
-//    @Getter
-//    @ManyToMany
-//    @JoinTable(
-//            name = "student_enrolled_courses",
-//            joinColumns = @JoinColumn(name = "student_id"),
-//            inverseJoinColumns = @JoinColumn(name = "course_id")
-//    )
-//    private List<Course> enrolledCourses;
+    @Getter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "student_enrolled_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Course> enrolledCourses = new HashSet<>();
 //    private Map<String, Double> quizScores;
 //    private Map<Assignment, String> assignmentsSubmitted;
 //    private Map<Assignment, Double> assignmentGrades;
@@ -82,6 +81,18 @@ public class Student extends User {
 //                ", assignmentGrades=" + assignmentGrades +
 //                ", notifications=" + notifications +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 

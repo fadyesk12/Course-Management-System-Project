@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Year;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @NoArgsConstructor
 @Entity
@@ -35,7 +34,9 @@ public class Instructor extends User {
     private String password;
     @Getter
     private String specialization;
-//    private List<Course> createdCourses;
+    @Getter
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Course> createdCourses = new HashSet<>();
 //    private Map<Course, List<Question>> questionBanks;
 //    private List<Notification> notifications;
 
@@ -62,5 +63,18 @@ public class Instructor extends User {
 //                ", questionBanks=" + questionBanks + '\'' +
 //                ", notifications=" + notifications + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Instructor instructor = (Instructor) o;
+        return Objects.equals(id, instructor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

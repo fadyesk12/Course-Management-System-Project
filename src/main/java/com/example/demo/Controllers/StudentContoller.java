@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Model.Student;
+import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,12 @@ import java.util.List;
 @RequestMapping("api/lms/student")
 public class StudentContoller {
     private final StudentService studentService;
+    private final EnrollmentService enrollmentService;
 
     @Autowired
-    public StudentContoller(StudentService studentService) {
+    public StudentContoller(StudentService studentService, EnrollmentService enrollmentService) {
         this.studentService = studentService;
+        this.enrollmentService = enrollmentService;
     }
 
 
@@ -49,9 +52,9 @@ public class StudentContoller {
     }
 
     @PutMapping("/enroll/{studentId}/{courseId}")
-    public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") Long courseId) {
+    public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") String courseId) {
         try {
-            studentService.enrollCourse(studentId, courseId);
+            enrollmentService.enrollStudentInCourse(studentId, courseId);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

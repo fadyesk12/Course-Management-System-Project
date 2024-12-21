@@ -1,10 +1,13 @@
 package com.example.demo.Services;
 
 // import com.example.demo.Model.Course;
+import com.example.demo.Model.Course;
 import com.example.demo.Model.Student;
+import com.example.demo.Repositories.CourseRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +49,4 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public void enrollCourse(Long studentId, Long courseId) {
-        Student student = studentRepository.findById(studentId).orElse(null);
-        // TODO: implement findById to get course
-        if (student == null) {
-            throw new IllegalStateException("Student not found.");
-        }
-        // TODO: implement functionality to enroll student in course
-
-    }
 }
