@@ -1,14 +1,40 @@
-package com.example.demo.Model;
+package com.example.lms.Model;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "quizzes")
 public class Quiz {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String title;
-    private Date creationDate;
-    private Course course;
+
+    @Column(name = "course_id")
+    private Long courseId;
+
+    @Column(name = "created_date", unique = true)
+    private LocalDateTime createdDate;
+
+    @Column(nullable = false)
+    private int duration;
+
+    @ManyToOne
+    @JoinColumn(name = "instructor-id")
+    private Instructor instructor;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
-    private Map<Student, Double> scores;
 }
