@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Model.Lesson;
 import com.example.demo.Model.Student;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.StudentService;
@@ -59,5 +60,10 @@ public class StudentContoller {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    @GetMapping("/RetrieveLessons/{courseId}")
+    public List<Lesson> viewLessons(@PathVariable("courseId") Long courseId){
+        return studentService.RetrieveLessons(courseId);
     }
 }

@@ -2,8 +2,11 @@ package com.example.demo.Services;
 
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
+import com.example.demo.Model.Lesson;
 import com.example.demo.Repositories.CourseRepository;
 import com.example.demo.Repositories.InstructorRepository;
+import com.example.demo.Repositories.LessonRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class InstructorCourseService {
     private final InstructorRepository instructorRepository;
     private final CourseRepository courseRepository;
+    private final LessonRepository lessonRepository;
 
     @Autowired
-    public InstructorCourseService(InstructorRepository instructorRepository, CourseRepository courseRepository) {
+    public InstructorCourseService(InstructorRepository instructorRepository, CourseRepository courseRepository, LessonRepository lessonRepository) {
         this.instructorRepository = instructorRepository;
         this.courseRepository = courseRepository;
+        this.lessonRepository = lessonRepository;
     }
 
     @Transactional
@@ -32,5 +37,19 @@ public class InstructorCourseService {
         course.setInstructor(instructor);
         instructor.getCreatedCourses().add(course);
         instructorRepository.save(instructor);
+    }
+
+    
+    public void addLesson(Long courseId, Lesson lesson){
+        Boolean c = courseRepository.existsById(courseId);
+        if(!c){
+            throw new IllegalStateException("Course doesn't exist");
+        }
+        Lesson l = lessonRepository.findByid(lesson.getId());
+        if(lessonRepository.existsById(lesson.getId())){
+            throw new IllegalStateException("Lesson already exists.");
+        }
+        lesson.setCourse(courseRepository.getReferenceById(courseId));
+        lessonRepository.save(lesson);
     }
 }

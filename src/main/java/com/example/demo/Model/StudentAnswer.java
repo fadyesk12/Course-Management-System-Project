@@ -8,7 +8,7 @@ import lombok.Getter;
 public class StudentAnswer {
     @Id
     @Getter
-    private Long id;
+    private Long answerId;
 
     @Getter
     @ManyToOne

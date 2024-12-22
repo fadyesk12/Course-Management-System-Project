@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
+import com.example.demo.Model.Lesson;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.InstructorCourseService;
 import com.example.demo.Services.InstructorService;
@@ -59,6 +60,16 @@ public class InstructorContoller {
     public void createCourse(@PathVariable("instructorId") Long instructorId, @RequestBody Course course) {
         try {
             instructorCourseService.createCourse(instructorId, course);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @PostMapping("/addLesson/{courseId}")
+    public void addLesson(@PathVariable("courseId") Long courseId, @RequestBody Lesson lesson){
+        try {
+            instructorCourseService.addLesson(courseId, lesson);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

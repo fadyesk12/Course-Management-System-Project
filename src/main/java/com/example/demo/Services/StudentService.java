@@ -2,8 +2,10 @@ package com.example.demo.Services;
 
 // import com.example.demo.Model.Course;
 import com.example.demo.Model.Course;
+import com.example.demo.Model.Lesson;
 import com.example.demo.Model.Student;
 import com.example.demo.Repositories.CourseRepository;
+import com.example.demo.Repositories.LessonRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,12 @@ import java.util.Optional;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final LessonRepository lessonRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, LessonRepository lessonRepository) {
         this.studentRepository = studentRepository;
+        this.lessonRepository = lessonRepository;
     }
 
 
@@ -48,6 +52,10 @@ public class StudentService {
             throw new IllegalStateException("Student not found.");
         }
         studentRepository.deleteById(id);
+    }
+
+    public List<Lesson> RetrieveLessons(Long courseId){
+        return lessonRepository.findByCourseId(courseId);
     }
 
 }
