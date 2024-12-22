@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Model.Lesson;
 import com.example.demo.Model.Student;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,10 @@ public class StudentContoller {
     @GetMapping("/RetrieveLessons/{courseId}")
     public List<Lesson> viewLessons(@PathVariable("courseId") Long courseId){
         return studentService.RetrieveLessons(courseId);
+    }
+
+    @GetMapping("/RetrieveNotifications/{studentId}")
+    public List<StudentNotification> retrievStudentNotifications(@PathVariable("studentId") Long studentId){
+        return studentService.retrieveNotifications(studentId);
     }
 }

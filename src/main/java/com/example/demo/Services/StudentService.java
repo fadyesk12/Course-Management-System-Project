@@ -4,8 +4,10 @@ package com.example.demo.Services;
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Lesson;
 import com.example.demo.Model.Student;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Repositories.CourseRepository;
 import com.example.demo.Repositories.LessonRepository;
+import com.example.demo.Repositories.StudentNotificationRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,13 @@ import java.util.Optional;
 public class StudentService {
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
+    private final StudentNotificationRepository studentNotificationRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, LessonRepository lessonRepository) {
+    public StudentService(StudentRepository studentRepository, LessonRepository lessonRepository, StudentNotificationRepository studentNotificationRepository) {
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
+        this.studentNotificationRepository = studentNotificationRepository;
     }
 
 
@@ -58,4 +62,7 @@ public class StudentService {
         return lessonRepository.findByCourseId(courseId);
     }
 
+    public List<StudentNotification> retrieveNotifications(Long studentId){
+        return studentNotificationRepository.findByStudentId(studentId);
+    }
 }

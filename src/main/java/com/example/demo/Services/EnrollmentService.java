@@ -1,8 +1,12 @@
 package com.example.demo.Services;
 
 import com.example.demo.Model.Course;
+import com.example.demo.Model.InstructorNotification;
 import com.example.demo.Model.Student;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Repositories.CourseRepository;
+import com.example.demo.Repositories.InstructorNotificationRepository;
+import com.example.demo.Repositories.StudentNotificationRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class EnrollmentService {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
+    private final StudentNotificationRepository studentNotificationRepository;
+    private final InstructorNotificationRepository instructorNotificationRepository;
 
     @Autowired
-    public EnrollmentService(StudentRepository studentRepository, CourseRepository courseRepository) {
+    public EnrollmentService(StudentRepository studentRepository, CourseRepository courseRepository,
+    StudentNotificationRepository studentNotificationRepository, 
+    InstructorNotificationRepository instructorNotificationRepository) {
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
+        this.studentNotificationRepository = studentNotificationRepository;
+        this.instructorNotificationRepository = instructorNotificationRepository;
     }
 
     @Transactional
@@ -34,6 +44,17 @@ public class EnrollmentService {
         course.getEnrolledStudents().add(student);
 
         studentRepository.save(student);
+
+        StudentNotification notification = new StudentNotification();
+        notification.setMessage("Added to course.");
+        notification.setStudent(student);
+        studentNotificationRepository.save(notification);
+
+        
+        InstructorNotification Inotification = new InstructorNotification();
+        Inotification.setMessage("Added Student to course.");
+        Inotification.setInstructor(course.getInstructor());
+        instructorNotificationRepository.save(Inotification);
     }
 
     @Transactional
@@ -51,5 +72,16 @@ public class EnrollmentService {
         course.getEnrolledStudents().remove(student);
 
         studentRepository.save(student);
+        
+        StudentNotification notification = new StudentNotification();
+        notification.setMessage("Removed from course.");
+        notification.setStudent(student);
+        studentNotificationRepository.save(notification);
+
+        
+        InstructorNotification Inotification = new InstructorNotification();
+        Inotification.setMessage("Removed student from course.");
+        Inotification.setInstructor(course.getInstructor());
+        instructorNotificationRepository.save(Inotification);
     }
 }

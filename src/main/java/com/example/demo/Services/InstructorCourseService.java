@@ -3,9 +3,11 @@ package com.example.demo.Services;
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
 import com.example.demo.Model.Lesson;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Repositories.CourseRepository;
 import com.example.demo.Repositories.InstructorRepository;
 import com.example.demo.Repositories.LessonRepository;
+import com.example.demo.Repositories.StudentNotificationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

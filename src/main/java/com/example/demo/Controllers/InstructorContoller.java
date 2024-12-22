@@ -2,7 +2,9 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
+import com.example.demo.Model.InstructorNotification;
 import com.example.demo.Model.Lesson;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.InstructorCourseService;
 import com.example.demo.Services.InstructorService;
@@ -84,5 +86,10 @@ public class InstructorContoller {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @GetMapping("/RetrieveNotifications/{instructorId}")
+    public List<InstructorNotification> retrievStudentNotifications(@PathVariable("instructorId") Long instructorId){
+        return instructorService.retrieveNotifications(instructorId);
     }
 }

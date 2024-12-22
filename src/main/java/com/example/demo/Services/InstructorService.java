@@ -2,9 +2,12 @@ package com.example.demo.Services;
 
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
+import com.example.demo.Model.InstructorNotification;
 import com.example.demo.Model.Student;
+import com.example.demo.Model.StudentNotification;
 import com.example.demo.Model.Lesson;
 import com.example.demo.Repositories.CourseRepository;
+import com.example.demo.Repositories.InstructorNotificationRepository;
 import com.example.demo.Repositories.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +19,12 @@ import java.util.Optional;
 @Service
 public class InstructorService {
     private final InstructorRepository instructorRepository;
+    private final InstructorNotificationRepository instructorNotificationRepository;
 
     @Autowired
-    public InstructorService(InstructorRepository instructorRepository) {
+    public InstructorService(InstructorRepository instructorRepository, InstructorNotificationRepository instructorNotificationRepository) {
         this.instructorRepository = instructorRepository;
+        this.instructorNotificationRepository = instructorNotificationRepository;
     }
 
     public void registerInstructor(Instructor instructor) {
@@ -48,6 +53,10 @@ public class InstructorService {
             throw new IllegalStateException("Instructor not found.");
         }
         instructorRepository.deleteById(id);
+    }
+
+    public List<InstructorNotification> retrieveNotifications(Long instructorId){
+        return instructorNotificationRepository.findByInstructorId(instructorId);
     }
 
 }

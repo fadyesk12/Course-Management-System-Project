@@ -24,5 +24,4 @@ public class DemoApplication {
 			storageService.init();
 		};
 	}
-
 }
