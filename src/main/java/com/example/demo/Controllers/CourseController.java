@@ -26,20 +26,20 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @PostMapping("/createCourse")
-    public void createCourse(@RequestBody Course course){
-        courseService.CreateCourse(course);
-    }
+    // @PostMapping("/createCourse")
+    // public void createCourse(@RequestBody Course course){
+    //     courseService.CreateCourse(course);
+    // }
 
-    @PostMapping("/enroll/{course_ID}")
-    public void AddStudent(@PathVariable("course_ID") String courseID, @RequestBody Student stud){
-        courseService.AddStudent(courseID, stud);
-    }
+    // @PostMapping("/enroll/{course_ID}")
+    // public void AddStudent(@PathVariable("course_ID") String courseID, @RequestBody Student stud){
+    //     courseService.AddStudent(courseID, stud);
+    // }
 
-    @DeleteMapping("/unenroll/{course_ID}")
-    public void RemoveStudent(@PathVariable("course_ID") String courseID, @RequestBody Student stud){
-        courseService.RemoveStudent(courseID, stud);
-    }
+    // @DeleteMapping("/unenroll/{course_ID}")
+    // public void RemoveStudent(@PathVariable("course_ID") String courseID, @RequestBody Student stud){
+    //     courseService.RemoveStudent(courseID, stud);
+    // }
 
 //    @PostMapping("/addLesson/{course_ID}")
 //    public void AddLesson(@PathVariable("course_ID") String courseID, @RequestBody Lesson lesson){

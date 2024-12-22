@@ -1,7 +1,7 @@
-package com.example.lms.Services;
+package com.example.demo.Services;
 
-import com.example.lms.Model.User;
-import com.example.lms.Reopsitories.UserRepository;
+import com.example.demo.Model.User;
+import com.example.demo.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

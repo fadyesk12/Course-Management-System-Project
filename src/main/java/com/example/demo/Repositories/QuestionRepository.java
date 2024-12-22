@@ -1,7 +1,7 @@
-package com.example.lms.Reopsitories;
+package com.example.demo.Reopsitories;
 
-import com.example.lms.Model.Question;
-import com.example.lms.Model.Quiz;
+import com.example.demo.Model.Question;
+import com.example.demo.Model.Quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

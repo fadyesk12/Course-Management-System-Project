@@ -1,8 +1,8 @@
-package com.example.lms.Controllers;
+package com.example.demo.Controllers;
 
-import com.example.lms.Model.Question;
-import com.example.lms.Model.Quiz;
-import com.example.lms.Services.QuizService;
+import com.example.demo.Model.Question;
+import com.example.demo.Model.Quiz;
+import com.example.demo.Services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

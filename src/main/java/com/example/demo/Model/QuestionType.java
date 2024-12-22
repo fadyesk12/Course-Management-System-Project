@@ -1,4 +1,4 @@
-package com.example.lms.Model;
+package com.example.demo.Model;
 
 public enum QuestionType {
     MCQ,

@@ -1,10 +1,10 @@
-package com.example.lms.Services;
+package com.example.demo.Services;
 
-import com.example.lms.Model.Question;
-import com.example.lms.Model.QuestionType;
-import com.example.lms.Model.Quiz;
-import com.example.lms.Reopsitories.QuestionRepository;
-import com.example.lms.Reopsitories.QuizRepository;
+import com.example.demo.Model.Question;
+import com.example.demo.Model.QuestionType;
+import com.example.demo.Model.Quiz;
+import com.example.demo.Repositories.QuestionRepository;
+import com.example.demo.Repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
