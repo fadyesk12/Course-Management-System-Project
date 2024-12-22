@@ -1,8 +1,8 @@
 package com.example.demo.Services;
 
-import com.example.demo.Model.Question;
-import com.example.demo.Model.QuestionType;
-import com.example.demo.Model.Quiz;
+import com.example.demo.Model.*;
+import com.example.demo.Repositories.AnswerRepository;
+import com.example.demo.Repositories.CourseRepository;
 import com.example.demo.Repositories.QuestionRepository;
 import com.example.demo.Repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,31 +17,44 @@ public class QuizService {
     private final QuizRepository quizRepository;
     private final QuestionRepository questionRepository;
 
+    private final CourseRepository courseRepository;
+
+    private final AnswerRepository answerRepository;
+
     @Autowired
-    public QuizService(QuizRepository quizRepository , QuestionRepository questionRepository){
+    public QuizService(QuizRepository quizRepository , QuestionRepository questionRepository,
+                       CourseRepository courseRepository, AnswerRepository answerRepository){
         this.quizRepository = quizRepository;
         this.questionRepository = questionRepository;
+        this.courseRepository = courseRepository;
+        this.answerRepository = answerRepository;
     }
 
     public Quiz createQuiz(Long courseId, String title, int duration) {
         Quiz quiz = new Quiz();
-        quiz.setCourseId(courseId);
+        Course course = courseRepository.findById(courseId).orElseThrow(()
+                -> new RuntimeException("Course not found with id: " + courseId));
+        quiz.setCourse(course);
         quiz.setTitle(title);
         quiz.setDuration(duration);
         return quizRepository.save(quiz);
     }
 
-    public Question addQuestion(Long quizId, Question question) {
+    public Question addQuestion(Long quizId, Question question, List<Answer> answers) {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new RuntimeException("Quiz not found with id: " + quizId)); // making sure the quiz already exists
         question.setQuiz(quiz);
         if (question.getType() == QuestionType.MCQ || question.getType() == QuestionType.TRUE_FALSE) {
-            if (question.getOptions() == null || question.getOptions().isEmpty()) {
+            if (answers == null || answers.isEmpty()) {
                 throw new RuntimeException("Options must be provided for MCQ or True/False questions");
             }
         } else if (question.getType() == QuestionType.SHORT_ANSWER) {
             if (question.getCorrectAnswer() == null || question.getCorrectAnswer().isEmpty()) {
                 throw new RuntimeException("Correct answer must be provided for Short Answer questions");
             }
+        }
+        for (Answer answer : answers) {
+            answer.setQuestion(question);
+            answerRepository.save(answer);
         }
         return questionRepository.save(question);
     }

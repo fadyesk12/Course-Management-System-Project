@@ -66,7 +66,7 @@ public class InstructorContoller {
     }
 
     @DeleteMapping("unentollStudent/{studentId}/{courseId}")
-    public void unenrollStudent(@PathVariable("studentId") Long studentId, @PathVariable("courseId") String courseId) {
+    public void unentollStudent(@PathVariable("studentId") Long studentId, @PathVariable("courseId") Long courseId) {
         try {
             enrollmentService.unenrollStudentFromCourse(studentId, courseId);
         }

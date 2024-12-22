@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Course {
     @Id
     @Getter
-    private String id;
+    private Long id;
     @Getter
     private String title;
     @Getter
@@ -36,7 +36,7 @@ public class Course {
 //    private Map<Lesson, String> lessonOTPs;
 //    private List<Notification> notifications;
 
-    public Course(String id, String title, String description, String duration, Date creationDate){
+    public Course(Long id, String title, String description, String duration, Date creationDate){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -44,7 +44,7 @@ public class Course {
         this.creationDate = creationDate;
     }
 
-    public Course(String id, String title, String description){
+    public Course(Long id, String title, String description){
         this.title = title;
         this.description = description;
     }

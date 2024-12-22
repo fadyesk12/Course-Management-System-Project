@@ -11,7 +11,6 @@ import java.util.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "instructor")
-
 public class Instructor extends User {
     @Id
     @SequenceGenerator(

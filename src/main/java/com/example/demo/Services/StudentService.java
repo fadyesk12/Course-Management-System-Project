@@ -21,6 +21,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+
     public void registerStudent(Student student) {
         Optional<Student> existingStudent = studentRepository.findByEmail(student.getEmail());
         if (existingStudent.isPresent()) {

@@ -20,7 +20,7 @@ public class EnrollmentService {
     }
 
     @Transactional
-    public void enrollStudentInCourse(Long studentId, String courseId) {
+    public void enrollStudentInCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student not found."));
         Course course = courseRepository.findById(courseId)
@@ -37,7 +37,7 @@ public class EnrollmentService {
     }
 
     @Transactional
-    public void unenrollStudentFromCourse(Long studentId, String courseId) {
+    public void unenrollStudentFromCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student not found."));
         Course course = courseRepository.findById(courseId)

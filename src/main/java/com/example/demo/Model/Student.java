@@ -95,5 +95,9 @@ public class Student extends User {
         return Objects.hash(id);
     }
 
+    @ManyToMany(mappedBy = "students",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Quiz> quizzes;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<StudentAnswer> studentAnswers;
 }

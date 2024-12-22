@@ -1,4 +1,4 @@
-package com.example.demo.Reopsitories;
+package com.example.demo.Repositories;
 
 import com.example.demo.Model.Question;
 import com.example.demo.Model.Quiz;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.Model.Answer;
 import java.util.List;
 
 
@@ -29,9 +29,10 @@ public class QuizController {
     }
 
     @PostMapping("/{quizId}/questions")
-    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId ,@RequestBody Question question) {
+    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId ,@RequestBody Question question,
+                                                @RequestBody List<Answer> answers) {
         try {
-            Question createdQuestion = quizService.addQuestion(quizId,question);
+            Question createdQuestion = quizService.addQuestion(quizId,question,answers);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

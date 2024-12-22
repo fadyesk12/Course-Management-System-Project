@@ -52,7 +52,7 @@ public class StudentContoller {
     }
 
     @PutMapping("/enroll/{studentId}/{courseId}")
-    public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") String courseId) {
+    public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") Long courseId) {
         try {
             enrollmentService.enrollStudentInCourse(studentId, courseId);
         }

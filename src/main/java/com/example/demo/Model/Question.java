@@ -31,11 +31,7 @@ public class Question {
     @Column(nullable = false)
     private QuestionType type;
 
-    @ElementCollection
-    @CollectionTable(name = "question_options", joinColumns = @JoinColumn(name = "question_id"))
-    @Column(name = "option_value")
-    private List<String> options;
-
     @Column(name = "correct_answer", nullable = false)
     private String correctAnswer;
+
 }
