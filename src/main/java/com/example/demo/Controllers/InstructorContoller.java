@@ -1,14 +1,17 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Model.AssignmentSubmission;
 import com.example.demo.Model.Course;
 import com.example.demo.Model.Instructor;
 import com.example.demo.Model.InstructorNotification;
 import com.example.demo.Model.Lesson;
 import com.example.demo.Model.StudentNotification;
+import com.example.demo.Services.AssignmentGradingService;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.InstructorCourseService;
 import com.example.demo.Services.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +22,14 @@ public class InstructorContoller {
     private final InstructorService instructorService;
     private final EnrollmentService enrollmentService;
     private final InstructorCourseService instructorCourseService;
+    private final AssignmentGradingService assignmentGradingService;
 
     @Autowired
-    public InstructorContoller(InstructorService instructorService, EnrollmentService enrollmentService, InstructorCourseService instructorCourseService) {
+    public InstructorContoller(InstructorService instructorService, EnrollmentService enrollmentService, InstructorCourseService instructorCourseService, AssignmentGradingService assignmentGradingService) {
         this.instructorService = instructorService;
         this.enrollmentService = enrollmentService;
         this.instructorCourseService = instructorCourseService;
+        this.assignmentGradingService = assignmentGradingService;
     }
 
 
@@ -73,5 +78,19 @@ public class InstructorContoller {
     @GetMapping("/RetrieveNotifications/{instructorId}")
     public List<InstructorNotification> retrievStudentNotifications(@PathVariable("instructorId") Long instructorId){
         return instructorService.retrieveNotifications(instructorId);
+    }
+
+    @PostMapping("/gradeAssignment/{submissionId}")
+    public ResponseEntity<AssignmentSubmission> gradeAssignment(
+            @PathVariable Long submissionId,
+            @RequestParam long grade) {
+        
+        AssignmentSubmission gradedSubmission = assignmentGradingService.gradeAssignment(submissionId, grade);
+
+        if (gradedSubmission != null) {
+            return ResponseEntity.ok(gradedSubmission); 
+        } else {
+            return ResponseEntity.status(404).body(null);
+        }
     }
 }

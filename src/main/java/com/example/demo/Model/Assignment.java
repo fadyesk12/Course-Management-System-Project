@@ -23,7 +23,7 @@ public class Assignment {
 
     private String description;
 
-    @Column(name = "submission_deadline", unique = true)
+    @Column(name = "submission_deadline")
     private Date submissionDeadline;
 
     @Column(name = "created_date", unique = true)
