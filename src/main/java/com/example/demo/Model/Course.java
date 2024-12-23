@@ -8,12 +8,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "course")
 public class Course {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String description;
     private String duration;
@@ -30,8 +33,7 @@ public class Course {
     private List<Quiz> quizzes;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
-//    private Map<Lesson, String> lessonOTPs;
-//    private List<Notification> notifications;
+
 
     public Course(Long id, String title, String description, String duration, Date creationDate){
         this.id = id;

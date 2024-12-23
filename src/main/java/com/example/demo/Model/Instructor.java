@@ -36,8 +36,10 @@ public class Instructor extends User {
     @Getter
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
     private Set<Course> createdCourses = new HashSet<>();
-//    private Map<Course, List<Question>> questionBanks;
-//    private List<Notification> notifications;
+    //    private Map<Course, List<Question>> questionBanks;
+    @Getter
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
+    private List<InstructorNotification> notifications;
 
     public Instructor(Long id, String name, String email, String password) {
         this.id = id;

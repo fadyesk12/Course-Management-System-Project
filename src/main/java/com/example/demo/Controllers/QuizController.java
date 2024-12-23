@@ -82,16 +82,7 @@ public class QuizController {
         Quiz quiz = quizService.getQuizById(quizId);
         return ResponseEntity.ok(quiz);
     }
-    // @PostMapping("/submit/{quizId}/{studentId}")
-    // public ResponseEntity<QuizSubmission> submitQuiz(@PathVariable Long quizId, @PathVariable Long studentId, @RequestBody List<String> answers) {
-    //     QuizSubmission quizSubmission = new QuizSubmission();
-    //     quizSubmission.setStudent(new Student(studentId)); 
-    //     quizSubmission.setQuiz(new Quiz(quizId));
-    //     quizSubmission.setAnswers(answers);
-    //     quizSubmission.setSubmissionDate(LocalDateTime.now());
 
-    //     return ResponseEntity.ok(quizSubmission);
-    // }
 
     @PostMapping("/grade/{quizSubmissionId}")
     public ResponseEntity<QuizSubmission> gradeQuiz(@PathVariable Long quizSubmissionId) {

@@ -31,9 +31,7 @@ public class StudentAnswer {
     @Column(nullable = false)
     private String text;
 
-    @Getter
-    @Column(nullable = false)
-    private boolean is_correct;
+
 
     public StudentAnswer() {
     }
@@ -43,6 +41,5 @@ public class StudentAnswer {
         this.quiz = quiz;
         this.question = question;
         this.text = text;
-        this.is_correct = is_correct;
     }
 }

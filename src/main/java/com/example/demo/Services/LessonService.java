@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class LessonService {
     private final LessonRepository lessonRepository;
     private final CourseRepository courseRepository;
@@ -23,6 +22,7 @@ public class LessonService {
             throw new IllegalStateException("Lesson already added");
         }
         lesson.setCourse(course);
+        lesson.setOTP((long) ((Math.random() * 1000000) % 1000000));
         course.getLessons().add(lesson);
         courseRepository.save(course);
 

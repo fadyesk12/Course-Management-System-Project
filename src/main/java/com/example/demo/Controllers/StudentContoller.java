@@ -1,14 +1,14 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Model.Lesson;
-import com.example.demo.Model.Student;
-import com.example.demo.Model.StudentNotification;
+import com.example.demo.Model.*;
 import com.example.demo.Services.EnrollmentService;
 import com.example.demo.Services.LessonService;
 import com.example.demo.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -37,9 +37,9 @@ public class StudentContoller {
         }
     }
 
-    @PostMapping("attendance/{studentId}/{lessonId}")
+    @PostMapping("attendance/{studentId}/{courseId}/{lessonId}")
     public void attendLesson(@PathVariable("studentId") Long studentId, @PathVariable("lessonId") Long lessonId,
-                               @RequestParam(value = "OTP", required = false) Long OTP, @RequestParam("courseId") Long courseId) {
+                             @RequestParam(value = "OTP", required = false) Long OTP, @PathVariable("courseId") Long courseId) {
         try {
             studentService.attendLesson(studentId, lessonId, OTP, courseId);
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class StudentContoller {
     }
 
 
-    @PutMapping("/enroll/{studentId}/{courseId}")
+    @PostMapping("/enroll/{studentId}/{courseId}")
     public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") Long courseId) {
         try {
             enrollmentService.enrollStudentInCourse(studentId, courseId);
@@ -57,7 +57,7 @@ public class StudentContoller {
             System.out.println(e.getMessage());
         }
     }
-    
+
     @GetMapping("/RetrieveLessons/{courseId}")
     public List<Lesson> viewLessons(@PathVariable("courseId") Long courseId){
         return studentService.RetrieveLessons(courseId);
@@ -67,4 +67,12 @@ public class StudentContoller {
     public List<StudentNotification> retrievStudentNotifications(@PathVariable("studentId") Long studentId){
         return studentService.retrieveNotifications(studentId);
     }
+
+     @PostMapping("/submit-quizzes/{studentId}/{quizId}")
+     public void submitQuiz(@PathVariable Long quizId, @PathVariable Long studentId, @RequestBody List<StudentAnswer> answers) {
+            studentService.submitQuiz(quizId, studentId, answers);
+
+         return;
+     }
+
 }

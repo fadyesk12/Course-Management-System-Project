@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.management.Notification;
 import java.time.Year;
 import java.util.*;
 
@@ -55,12 +56,17 @@ public class Student extends User {
     )
     private Set<Lesson> attendedLessons;
 //    private Map<String, Double> quizScores;
-//    private Map<Assignment, String> assignmentsSubmitted;
+
+    @Getter
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<AssignmentSubmission> assignmentsSubmitted;
+
+
 //    private Map<Assignment, Double> assignmentGrades;
 
-//    @Getter
-//    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Notification> notifications;
+    @Getter
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<StudentNotification> notifications;
 
     public Student(Long id, String name, String email, String password)  {
         this.id = id;
@@ -106,6 +112,7 @@ public class Student extends User {
     }
 
     @ManyToMany(mappedBy = "students",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Getter
     private Set<Quiz> quizzes;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)

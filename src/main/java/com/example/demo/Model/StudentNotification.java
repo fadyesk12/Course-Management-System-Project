@@ -7,23 +7,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Entity
-@Table(name = "Notification")
+@Table(name = "student_notification")
+@NoArgsConstructor
+@Getter
+@Setter
 public class StudentNotification {
+
     @Id
-    @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter
-    @Setter
+
     private String message;
-    @Getter
-    private Date date;
-    @Getter
+
+    private Date date = new Date(); // Default to current date
+
     private boolean isRead = false;
-    @Getter
-    @Setter
+
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     private Student student;
+
 }

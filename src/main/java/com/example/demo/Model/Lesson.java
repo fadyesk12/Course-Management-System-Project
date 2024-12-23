@@ -22,6 +22,7 @@ public class Lesson {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Column(nullable = false)
     private Long OTP;
     public Lesson(Long id, String title, Date date){
         this.id = id;
@@ -31,6 +32,7 @@ public class Lesson {
     public Lesson(String title, Date date){
         this.title = title;
         this.date = date;
+        OTP = (long) (Math.random() * 1000000);
     }
 
     @ManyToMany(mappedBy = "attendedLessons")

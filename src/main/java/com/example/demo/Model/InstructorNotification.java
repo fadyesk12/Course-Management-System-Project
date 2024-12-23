@@ -9,16 +9,17 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "Notification")
+@Table(name = "instructor_notification")
 public class InstructorNotification {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     private Long id;
     @Getter
     @Setter
     private String message;
     @Getter
-    private Date date;
+    private Date date = new Date();
     @Getter
     private boolean isRead;
     @Getter
