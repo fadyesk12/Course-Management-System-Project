@@ -24,7 +24,7 @@ public class Course {
     private Instructor instructor;
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<Student> enrolledStudents = new HashSet<>();
-    @OneToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;

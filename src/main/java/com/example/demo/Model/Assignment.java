@@ -33,11 +33,11 @@ public class Assignment {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToMany
-    @JoinColumn(name = "student_id")
-    private Student student;
+    // @ManyToMany
+    // @JoinColumn(name = "student_id")
+    // private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "instructor_id")
-    private Instructor instructor;
+    // @ManyToOne
+    // @JoinColumn(name = "instructor_id")
+    // private Instructor instructor;
 }

@@ -35,8 +35,8 @@ public class AssignmentService {
             assignment.setDescription(updatedAssignment.getDescription());
             assignment.setSubmissionDeadline(updatedAssignment.getSubmissionDeadline());
             assignment.setCourse(updatedAssignment.getCourse());
-            assignment.setInstructor(updatedAssignment.getInstructor());
-            assignment.setStudent(updatedAssignment.getStudent());
+            // assignment.setInstructor(updatedAssignment.getInstructor());
+            // assignment.setStudent(updatedAssignment.getStudent());
 
             return assignmentRepository.save(assignment);
         } else {

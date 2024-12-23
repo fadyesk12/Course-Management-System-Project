@@ -50,15 +50,15 @@ public class InstructorContoller {
         }
     }
 
-    @PostMapping("/addLesson/{courseId}")
-    public void addLesson(@PathVariable("courseId") Long courseId, @RequestBody Lesson lesson){
-        try {
-            instructorCourseService.addLesson(courseId, lesson);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    // @PostMapping("/addLesson/{courseId}")
+    // public void addLesson(@PathVariable("courseId") Long courseId, @RequestBody Lesson lesson){
+    //     try {
+    //         instructorCourseService.addLesson(courseId, lesson);
+    //     }
+    //     catch (Exception e) {
+    //         System.out.println(e.getMessage());
+    //     }
+    // }
 
     @DeleteMapping("unentollStudent/{studentId}/{courseId}")
     public void unentollStudent(@PathVariable("studentId") Long studentId, @PathVariable("courseId") Long courseId) {
