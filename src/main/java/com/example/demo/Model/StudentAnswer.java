@@ -2,8 +2,10 @@ package com.example.demo.Model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
 @Table(name = "student_answers")
 public class StudentAnswer {
     @Id
