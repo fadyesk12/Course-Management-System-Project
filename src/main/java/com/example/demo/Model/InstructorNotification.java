@@ -26,4 +26,8 @@ public class InstructorNotification {
     @ManyToOne
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
+    public InstructorNotification(String message, Instructor instructor){
+        this.message = message;
+        this.instructor = instructor;
+    }
 }

@@ -13,6 +13,7 @@ import lombok.Setter;
 public class StudentNotification {
     @Id
     @Getter
+    @Setter
     private Long id;
     @Getter
     @Setter

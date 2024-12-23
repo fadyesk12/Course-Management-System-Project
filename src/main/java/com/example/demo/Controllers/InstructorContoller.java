@@ -76,7 +76,7 @@ public class InstructorContoller {
     }
 
     @GetMapping("/RetrieveNotifications/{instructorId}")
-    public List<InstructorNotification> retrievStudentNotifications(@PathVariable("instructorId") Long instructorId){
+    public List<InstructorNotification> retrieveInstructorNotifications(@PathVariable("instructorId") Long instructorId){
         return instructorService.retrieveNotifications(instructorId);
     }
 

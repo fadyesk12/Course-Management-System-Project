@@ -13,7 +13,9 @@ import lombok.Setter;
 @Table(name = "course")
 public class Course {
     @Id
+    @Setter
     private Long id;
+    @Setter
     private String title;
     private String description;
     private String duration;
