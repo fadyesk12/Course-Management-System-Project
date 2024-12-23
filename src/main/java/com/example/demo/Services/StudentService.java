@@ -30,13 +30,7 @@ public class StudentService {
     }
 
 
-    public void registerStudent(Student student) {
-        Optional<Student> existingStudent = studentRepository.findByEmail(student.getEmail());
-        if (existingStudent.isPresent()) {
-            throw new IllegalStateException("Student with this email already exists.");
-        }
-        studentRepository.save(student);
-    }
+
 
     public Student login(String email, String password) {
         return studentRepository.findByEmail(email)
@@ -51,12 +45,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public void deleteStudent(Long id) {
-        if (!studentRepository.existsById(id)) {
-            throw new IllegalStateException("Student not found.");
-        }
-        studentRepository.deleteById(id);
-    }
+
 
     public List<Lesson> RetrieveLessons(Long courseId){
         return lessonRepository.findByCourseId(courseId);

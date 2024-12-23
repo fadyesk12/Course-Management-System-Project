@@ -33,25 +33,7 @@ public class StudentContoller {
         }
     }
 
-    @PostMapping("/register")
-    public void registerStudent(@RequestBody Student student) {
-        try {
-            studentService.registerStudent(student);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    @DeleteMapping("/delete/{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Long id) {
-        try {
-            studentService.deleteStudent(id);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     @PutMapping("/enroll/{studentId}/{courseId}")
     public void enrollStudentInCourse( @PathVariable("studentId") Long studentId,@PathVariable("courseId") Long courseId) {

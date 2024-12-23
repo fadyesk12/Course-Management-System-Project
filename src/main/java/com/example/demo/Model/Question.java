@@ -34,7 +34,7 @@ public class Question {
     @Column(name = "correct_answer", nullable = false)
     private String correctAnswer;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
 
 }

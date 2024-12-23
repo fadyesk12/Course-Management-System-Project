@@ -29,14 +29,30 @@ public class QuizController {
     }
 
     @PostMapping("/{quizId}/questions")
-    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId ,@RequestBody Question question) {
+    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId, @RequestBody Question question) {
         try {
-            Question createdQuestion = quizService.addQuestion(quizId,question);
+            System.out.println("Received question: " + question);
+            System.out.println("Answers: " + question.getAnswers());
+            Question createdQuestion = quizService.addQuestion(quizId, question);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    @DeleteMapping("deleteQuestion/{questionId}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId) {
+        quizService.deleteQuestion(questionId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{quizId}")
+    public ResponseEntity<Void> deleteQuiz(@PathVariable Long quizId) {
+        quizService.deleteQuiz(quizId);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @GetMapping("/{quizId}/random-questions")
     public ResponseEntity<List<Question>> getRandomQuestions(@PathVariable Long quizId, @RequestParam int numQuestions) {

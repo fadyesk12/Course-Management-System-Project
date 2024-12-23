@@ -54,12 +54,28 @@ public class QuizService {
                 throw new RuntimeException("Correct answer must be provided for Short Answer questions");
             }
         }
+        questionRepository.save(question);
         for (Answer answer : answers) {
             answer.setQuestion(question);
+            System.out.println(answer);
             answerRepository.save(answer);
         }
 
-        return questionRepository.save(question);
+        return question;
+    }
+
+    public void deleteQuestion(Long questionId) {
+        if (!questionRepository.existsById(questionId)) {
+            throw new IllegalStateException("Question not found.");
+        }
+        questionRepository.deleteById(questionId);
+    }
+
+    public void deleteQuiz(Long quizId) {
+        if (!quizRepository.existsById(quizId)) {
+            throw new IllegalStateException("Quiz not found.");
+        }
+        quizRepository.deleteById(quizId);
     }
 
     private List<Question> randomizingQuestions(List<Question> questions) {

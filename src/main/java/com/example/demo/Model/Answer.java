@@ -3,27 +3,35 @@ package com.example.demo.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
+@Getter
 @Entity
 @Table(name = "answers")
 public class Answer {
     @Id
-    @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Automatically generates the ID
     private Long id;
 
     @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Getter
     @Column(nullable = false)
     private String text;
 
-    @Getter
-    @Column(nullable = false)
-    private boolean is_correct;
+    @Setter
+    @Column(name = "is_correct", nullable = false)
+    private Boolean is_correct;
 
-
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", question=" + question +
+                ", text='" + text + '\'' +
+                ", is_correct=" + is_correct +
+                '}';
+    }
 }

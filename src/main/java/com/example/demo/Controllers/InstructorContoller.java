@@ -38,25 +38,7 @@ public class InstructorContoller {
         }
     }
 
-    @PostMapping("/register")
-    public void registerInstructor(@RequestBody Instructor instructor) {
-        try {
-            instructorService.registerInstructor(instructor);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    @DeleteMapping("/delete/{instructorId}")
-    public void deleteInstructor(@PathVariable("instructorId") Long id) {
-        try {
-            instructorService.deleteInstructor(id);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     @PostMapping("/createCourse/{instructorId}")
     public void createCourse(@PathVariable("instructorId") Long instructorId, @RequestBody Course course) {

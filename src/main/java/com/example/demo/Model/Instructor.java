@@ -34,7 +34,7 @@ public class Instructor extends User {
     @Getter
     private String specialization;
     @Getter
-    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
     private Set<Course> createdCourses = new HashSet<>();
 //    private Map<Course, List<Question>> questionBanks;
 //    private List<Notification> notifications;

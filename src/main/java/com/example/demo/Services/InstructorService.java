@@ -27,13 +27,7 @@ public class InstructorService {
         this.instructorNotificationRepository = instructorNotificationRepository;
     }
 
-    public void registerInstructor(Instructor instructor) {
-        Optional<Instructor> existingInstructor = instructorRepository.findByEmail(instructor.getEmail());
-        if (existingInstructor.isPresent()) {
-            throw new IllegalStateException("Instructor with this email already exists.");
-        }
-        instructorRepository.save(instructor);
-    }
+
 
     public Instructor login(String email, String password) {
         return instructorRepository.findByEmail(email)
@@ -48,12 +42,7 @@ public class InstructorService {
         return instructorRepository.findAll();
     }
 
-    public void deleteInstructor(Long id) {
-        if (!instructorRepository.existsById(id)) {
-            throw new IllegalStateException("Instructor not found.");
-        }
-        instructorRepository.deleteById(id);
-    }
+
 
     public List<InstructorNotification> retrieveNotifications(Long instructorId){
         return instructorNotificationRepository.findByInstructorId(instructorId);

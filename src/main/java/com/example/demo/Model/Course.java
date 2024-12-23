@@ -31,7 +31,9 @@ public class Course {
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<Student> enrolledStudents = new HashSet<>();
 //    private List<Lesson> lessons;
-//    private List<Quiz> quizzes;
+    @Getter
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Quiz> quizzes;
 //    private List<Assignment> assignments;
 //    private Map<Lesson, String> lessonOTPs;
 //    private List<Notification> notifications;
