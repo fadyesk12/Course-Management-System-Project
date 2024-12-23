@@ -30,11 +30,15 @@ public class Course {
     @Getter
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<Student> enrolledStudents = new HashSet<>();
-//    private List<Lesson> lessons;
+    @Getter
+    @OneToMany(mappedBy = "courses", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
     @Getter
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
-//    private List<Assignment> assignments;
+    @Getter
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Assignment> assignments;
 //    private Map<Lesson, String> lessonOTPs;
 //    private List<Notification> notifications;
 
