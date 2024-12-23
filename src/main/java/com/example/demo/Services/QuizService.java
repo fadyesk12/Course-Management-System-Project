@@ -37,12 +37,14 @@ public class QuizService {
         quiz.setCourse(course);
         quiz.setTitle(title);
         quiz.setDuration(duration);
+        quiz.setInstructor(course.getInstructor());
         return quizRepository.save(quiz);
     }
 
-    public Question addQuestion(Long quizId, Question question, List<Answer> answers) {
+    public Question addQuestion(Long quizId, Question question) {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new RuntimeException("Quiz not found with id: " + quizId)); // making sure the quiz already exists
         question.setQuiz(quiz);
+        List<Answer> answers = question.getAnswers();
         if (question.getType() == QuestionType.MCQ || question.getType() == QuestionType.TRUE_FALSE) {
             if (answers == null || answers.isEmpty()) {
                 throw new RuntimeException("Options must be provided for MCQ or True/False questions");
@@ -56,6 +58,7 @@ public class QuizService {
             answer.setQuestion(question);
             answerRepository.save(answer);
         }
+
         return questionRepository.save(question);
     }
 

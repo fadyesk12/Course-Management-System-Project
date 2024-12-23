@@ -22,17 +22,16 @@ public class QuizController {
         this.quizService = quizService;
     }
 
-    @PostMapping
-    public ResponseEntity<Quiz> createQuiz(@RequestParam Long courseId, @RequestBody Quiz quizRequest) {
+    @PostMapping("/{courseId}")
+    public ResponseEntity<Quiz> createQuiz(@PathVariable Long courseId, @RequestBody Quiz quizRequest) {
         Quiz createdQuiz = quizService.createQuiz(courseId, quizRequest.getTitle(), quizRequest.getDuration());
         return ResponseEntity.status(201).body(createdQuiz);
     }
 
     @PostMapping("/{quizId}/questions")
-    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId ,@RequestBody Question question,
-                                                @RequestBody List<Answer> answers) {
+    public ResponseEntity<Question> addQuestion(@PathVariable Long quizId ,@RequestBody Question question) {
         try {
-            Question createdQuestion = quizService.addQuestion(quizId,question,answers);
+            Question createdQuestion = quizService.addQuestion(quizId,question);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
