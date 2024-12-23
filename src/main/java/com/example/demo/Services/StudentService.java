@@ -11,10 +11,8 @@ import com.example.demo.Repositories.StudentNotificationRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -22,11 +20,14 @@ public class StudentService {
     private final LessonRepository lessonRepository;
     private final StudentNotificationRepository studentNotificationRepository;
 
+    private final CourseRepository courseRepository;
+
     @Autowired
-    public StudentService(StudentRepository studentRepository, LessonRepository lessonRepository, StudentNotificationRepository studentNotificationRepository) {
+    public StudentService(StudentRepository studentRepository, LessonRepository lessonRepository, StudentNotificationRepository studentNotificationRepository, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
         this.studentNotificationRepository = studentNotificationRepository;
+        this.courseRepository = courseRepository;
     }
 
 
@@ -54,4 +55,24 @@ public class StudentService {
     public List<StudentNotification> retrieveNotifications(Long studentId){
         return studentNotificationRepository.findByStudentId(studentId);
     }
+
+    public void attendLesson(Long studentId, Long lessonId, Long otp, Long courseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("Student not found."));
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new IllegalStateException("Lesson not found."));
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalStateException("Course not found."));
+        if(!student.getAttendedLessons().contains(lesson)){
+            if (lesson.getOTP() != otp) {
+                throw new IllegalStateException("Invalid OTP.");
+            }
+        }
+        if (!lesson.getCourse().getId().equals(courseId)) {
+            throw new IllegalStateException("Lesson not found in course.");
+        }
+        student.getAttendedLessons().add(lesson);
+        studentRepository.save(student);
+    }
+
 }

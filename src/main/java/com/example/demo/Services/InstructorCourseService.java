@@ -17,13 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class InstructorCourseService {
     private final InstructorRepository instructorRepository;
     private final CourseRepository courseRepository;
-    private final LessonRepository lessonRepository;
 
     @Autowired
     public InstructorCourseService(InstructorRepository instructorRepository, CourseRepository courseRepository, LessonRepository lessonRepository) {
         this.instructorRepository = instructorRepository;
         this.courseRepository = courseRepository;
-        this.lessonRepository = lessonRepository;
     }
 
     @Transactional
@@ -42,16 +40,5 @@ public class InstructorCourseService {
     }
 
     
-    public void addLesson(Long courseId, Lesson lesson){
-        Boolean c = courseRepository.existsById(courseId);
-        if(!c){
-            throw new IllegalStateException("Course doesn't exist");
-        }
-        Lesson l = lessonRepository.findByid(lesson.getId());
-        if(lessonRepository.existsById(lesson.getId())){
-            throw new IllegalStateException("Lesson already exists.");
-        }
-        lesson.setCourse(courseRepository.getReferenceById(courseId));
-        lessonRepository.save(lesson);
-    }
+
 }

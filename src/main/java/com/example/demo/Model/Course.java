@@ -46,15 +46,14 @@ public class Course {
         this.description = description;
     }
 
-    public void AddStudent(Student s){
-        enrolledStudents.add(s);
+    public Course(Long id, String title, String description, String duration, Date creationDate, Instructor instructor){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
+        this.creationDate = creationDate;
+        this.instructor = instructor;
     }
-    public void RemoveStudent(Student s){
-        enrolledStudents.remove(s);
-    }
-//    public void AddLesson(Lesson lesson){
-//        lessons.add(lesson);
-//    }
 
     @Override
     public boolean equals(Object o) {

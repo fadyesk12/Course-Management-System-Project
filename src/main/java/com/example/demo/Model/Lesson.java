@@ -10,16 +10,29 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Entity
+@Setter
+@Getter
 @Table(name = "Lesson")
 public class Lesson {
     @Id
-    @Getter
     private Long id;
     private String title;
     private Date date;
-    @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    private Long OTP;
+    public Lesson(Long id, String title, Date date){
+        this.id = id;
+        this.title = title;
+        this.date = date;
+    }
+    public Lesson(String title, Date date){
+        this.title = title;
+        this.date = date;
+    }
+
+    @ManyToMany(mappedBy = "attendedLessons")
+    private List<Student> students = new ArrayList<>();
 }

@@ -75,4 +75,5 @@ public class QuizController {
         Quiz quiz = quizService.getQuizById(quizId);
         return ResponseEntity.ok(quiz);
     }
+
 }

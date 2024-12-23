@@ -10,7 +10,9 @@ import java.util.List;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson,Long>{
-    Lesson findByid(Long id);
+    Optional <Lesson> findByid(Long id);
     List<Lesson> findByCourseId(Long courseId);
+
+    Optional<Lesson> findByOTP(Long OTP);
     
 }

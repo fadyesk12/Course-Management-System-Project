@@ -4,6 +4,7 @@ import com.example.demo.Model.Lesson;
 import com.example.demo.Model.Student;
 import com.example.demo.Model.StudentNotification;
 import com.example.demo.Services.EnrollmentService;
+import com.example.demo.Services.LessonService;
 import com.example.demo.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,13 @@ public class StudentContoller {
     private final StudentService studentService;
     private final EnrollmentService enrollmentService;
 
+    private final LessonService lessonService;
+
     @Autowired
-    public StudentContoller(StudentService studentService, EnrollmentService enrollmentService) {
+    public StudentContoller(StudentService studentService, EnrollmentService enrollmentService, LessonService lessonService) {
         this.studentService = studentService;
         this.enrollmentService = enrollmentService;
+        this.lessonService = lessonService;
     }
 
 
@@ -33,6 +37,15 @@ public class StudentContoller {
         }
     }
 
+    @PostMapping("attendance/{studentId}/{lessonId}")
+    public void attendLesson(@PathVariable("studentId") Long studentId, @PathVariable("lessonId") Long lessonId,
+                               @RequestParam(value = "OTP", required = false) Long OTP, @RequestParam("courseId") Long courseId) {
+        try {
+            studentService.attendLesson(studentId, lessonId, OTP, courseId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
     @PutMapping("/enroll/{studentId}/{courseId}")

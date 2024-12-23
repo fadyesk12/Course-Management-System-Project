@@ -28,10 +28,6 @@ public class CourseController {
 
 
 
-//    @PostMapping("/addLesson/{course_ID}")
-//    public void AddLesson(@PathVariable("course_ID") String courseID, @RequestBody Lesson lesson){
-//        courseService.AddLesson(courseID, lesson);
-//    }
 
     @GetMapping("/getEnrolled")
     public List<Student> getStudentList(@RequestBody Course course){

@@ -44,6 +44,16 @@ public class Student extends User {
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private Set<Course> enrolledCourses = new HashSet<>();
+
+
+    @Getter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "student_attended_lessons",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "lesson_id")
+    )
+    private Set<Lesson> attendedLessons;
 //    private Map<String, Double> quizScores;
 //    private Map<Assignment, String> assignmentsSubmitted;
 //    private Map<Assignment, Double> assignmentGrades;
