@@ -18,7 +18,7 @@ public class AssignmentSubmission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "submitted_date", unique = true)
+    @Column(name = "submitted_date")
     private LocalDateTime submitted_date;
 
     @ManyToOne
@@ -29,8 +29,10 @@ public class AssignmentSubmission {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne
     @Column(name = "grade")
     private long grade;
 
+    @Lob
+    @Column(name = "file_content")
+    private byte[] fileContent; 
 }
