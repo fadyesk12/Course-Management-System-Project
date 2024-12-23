@@ -2,12 +2,17 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Model.Question;
 import com.example.demo.Model.Quiz;
+import com.example.demo.Model.QuizSubmission;
+import com.example.demo.Model.Student;
+import com.example.demo.Services.QuizGradingService;
 import com.example.demo.Services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Model.Answer;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -16,10 +21,12 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private final QuizGradingService quizGradingService;
 
     @Autowired
-    public QuizController(QuizService quizService) {
+    public QuizController(QuizService quizService, QuizGradingService quizGradingService) {
         this.quizService = quizService;
+        this.quizGradingService = quizGradingService;
     }
 
     @PostMapping("/{courseId}")
@@ -75,5 +82,20 @@ public class QuizController {
         Quiz quiz = quizService.getQuizById(quizId);
         return ResponseEntity.ok(quiz);
     }
+    @PostMapping("/submit/{quizId}/{studentId}")
+    public ResponseEntity<QuizSubmission> submitQuiz(@PathVariable Long quizId, @PathVariable Long studentId, @RequestBody List<String> answers) {
+        QuizSubmission quizSubmission = new QuizSubmission();
+        quizSubmission.setStudent(new Student(studentId)); 
+        quizSubmission.setQuiz(new Quiz(quizId));
+        quizSubmission.setAnswers(answers);
+        quizSubmission.setSubmissionDate(LocalDateTime.now());
+        //save submission in repo
+        return ResponseEntity.ok(quizSubmission);
+    }
 
+    @PostMapping("/grade/{quizSubmissionId}")
+    public ResponseEntity<QuizSubmission> gradeQuiz(@PathVariable Long quizSubmissionId) {
+        QuizSubmission gradedSubmission = quizGradingService.gradeQuizSubmission(quizSubmissionId);
+        return ResponseEntity.ok(gradedSubmission);
+    }
 }
