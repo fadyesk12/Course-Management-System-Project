@@ -7,36 +7,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "course")
 public class Course {
     @Id
-    @Getter
     private Long id;
-    @Getter
     private String title;
-    @Getter
     private String description;
-    @Getter
     private String duration;
-    @Getter
     private Date creationDate;
-    @Getter
     @Setter
     @ManyToOne
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
-    @Getter
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<Student> enrolledStudents = new HashSet<>();
-    @Getter
     @OneToMany(mappedBy = "courses", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
-    @Getter
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
-    @Getter
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
 //    private Map<Lesson, String> lessonOTPs;
