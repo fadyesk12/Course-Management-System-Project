@@ -17,25 +17,23 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/quizzes")
+@RequestMapping("api/lms/quiz")
 public class QuizController {
 
     private final QuizService quizService;
-    private final QuizGradingService quizGradingService;
 
     @Autowired
-    public QuizController(QuizService quizService, QuizGradingService quizGradingService) {
+    public QuizController(QuizService quizService) {
         this.quizService = quizService;
-        this.quizGradingService = quizGradingService;
     }
 
-    @PostMapping("/{courseId}")
+    @PostMapping("createQuiz/{courseId}")
     public ResponseEntity<Quiz> createQuiz(@PathVariable Long courseId, @RequestBody Quiz quizRequest) {
         Quiz createdQuiz = quizService.createQuiz(courseId, quizRequest.getTitle(), quizRequest.getDuration());
         return ResponseEntity.status(201).body(createdQuiz);
     }
 
-    @PostMapping("/{quizId}/questions")
+    @PostMapping("addQuestion/{quizId}")
     public ResponseEntity<Question> addQuestion(@PathVariable Long quizId, @RequestBody Question question) {
         try {
             System.out.println("Received question: " + question);
@@ -61,7 +59,7 @@ public class QuizController {
     }
 
 
-    @GetMapping("/{quizId}/random-questions")
+    @GetMapping("random-questions/{quizId}")
     public ResponseEntity<List<Question>> getRandomQuestions(@PathVariable Long quizId, @RequestParam int numQuestions) {
         try {
             List<Question> randomQuestions = quizService.getRandomQuestionsForQuiz(quizId, numQuestions);
@@ -77,16 +75,11 @@ public class QuizController {
         return ResponseEntity.ok(quizzes);
     }
 
-    @GetMapping("/{quizId}")
+    @GetMapping("/getQuiz/{quizId}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable Long quizId) {
         Quiz quiz = quizService.getQuizById(quizId);
         return ResponseEntity.ok(quiz);
     }
 
 
-    @PostMapping("/grade/{quizSubmissionId}")
-    public ResponseEntity<QuizSubmission> gradeQuiz(@PathVariable Long quizSubmissionId) {
-        QuizSubmission gradedSubmission = quizGradingService.gradeQuizSubmission(quizSubmissionId);
-        return ResponseEntity.ok(gradedSubmission);
-    }
 }

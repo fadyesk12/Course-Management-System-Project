@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +18,7 @@ public class Answer {
     @Setter
     @ManyToOne
     @JoinColumn(name = "question_id")
+    @JsonIgnore
     private Question question;
 
     @Column(nullable = false)
@@ -33,5 +36,10 @@ public class Answer {
                 ", text='" + text + '\'' +
                 ", is_correct=" + is_correct +
                 '}';
+    }
+
+    @JsonProperty("question")
+    public String getQuestionText() {
+        return question != null ? question.getText() : null;
     }
 }

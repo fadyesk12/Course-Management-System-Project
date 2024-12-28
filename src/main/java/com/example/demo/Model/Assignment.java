@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +26,27 @@ public class Assignment {
     private String description;
 
     @Column(name = "submission_deadline")
-    private Date submissionDeadline;
+    private String submissionDeadline;
 
     @Column(name = "created_date", unique = true)
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonIgnore
     private Course course;
+
+    public Assignment(Long id, String title, String description, String submissionDate, String createdDate){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.submissionDeadline = submissionDate;
+        this.createdDate = createdDate;
+    }
+
+    public Assignment() {
+
+    }
 
     // @ManyToMany
     // @JoinColumn(name = "student_id")
@@ -40,4 +55,9 @@ public class Assignment {
     // @ManyToOne
     // @JoinColumn(name = "instructor_id")
     // private Instructor instructor;
+
+    @JsonProperty("course")
+    public Long getCourseId() {
+        return course != null ? course.getId() : null;
+    }
 }

@@ -31,13 +31,10 @@ public class QuizService {
     }
 
     public Quiz createQuiz(Long courseId, String title, int duration) {
-        Quiz quiz = new Quiz();
         Course course = courseRepository.findById(courseId).orElseThrow(()
                 -> new RuntimeException("Course not found with id: " + courseId));
-        quiz.setCourse(course);
-        quiz.setTitle(title);
-        quiz.setDuration(duration);
-        quiz.setInstructor(course.getInstructor());
+        Quiz quiz = new Quiz(title, course, duration, course.getInstructor());
+
         return quizRepository.save(quiz);
     }
 

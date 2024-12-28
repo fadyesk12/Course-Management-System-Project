@@ -25,26 +25,29 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public void registerAdmin(Admin admin) {
+    public Admin registerAdmin(Admin admin) {
         Optional<Admin> existingAdmin = adminRepository.findByEmail(admin.getEmail());
         if (existingAdmin.isPresent()) {
             throw new IllegalStateException("Admin with this email already exists.");
         }
         adminRepository.save(admin);
+        return admin;
     }
-    public void registerInstructor(Instructor instructor) {
+    public Instructor registerInstructor(Instructor instructor) {
         Optional<Instructor> existingInstructor = instructorRepository.findByEmail(instructor.getEmail());
         if (existingInstructor.isPresent()) {
             throw new IllegalStateException("Instructor with this email already exists.");
         }
         instructorRepository.save(instructor);
+        return instructor;
     }
-    public void registerStudent(Student student) {
+    public Student registerStudent(Student student) {
         Optional<Student> existingStudent = studentRepository.findByEmail(student.getEmail());
         if (existingStudent.isPresent()) {
             throw new IllegalStateException("Student with this email already exists.");
         }
         studentRepository.save(student);
+        return student;
     }
     public Admin login(String email, String password) {
         return adminRepository.findByEmail(email)
@@ -76,5 +79,14 @@ public class AdminService {
             throw new IllegalStateException("Student not found.");
         }
         studentRepository.deleteById(id);
+    }
+
+    public Instructor getInstructor(Long id) {
+        return instructorRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Instructor not found."));
+    }
+    public Student getStudent(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Student not found."));
     }
 }

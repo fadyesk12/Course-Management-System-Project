@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +25,14 @@ public class AssignmentSubmission {
 
     @ManyToOne
     @JoinColumn(name = "assignment_id")
+    @JsonIgnore
     private Assignment assignment;
+
+    private String submissionPath;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 
     @Column(name = "grade")
@@ -34,5 +40,15 @@ public class AssignmentSubmission {
 
     @Lob
     @Column(name = "file_content")
-    private byte[] fileContent; 
+    private byte[] fileContent;
+
+    @JsonProperty("assignment")
+    public String getAssignmentTitle() {
+        return assignment != null ? assignment.getTitle() : null;
+    }
+
+    @JsonProperty("student")
+    public String getStudentName() {
+        return student != null ? student.getName() : null;
+    }
 }

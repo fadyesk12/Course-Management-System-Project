@@ -26,14 +26,14 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/getLessons")
-    public List<Lesson> getLessons(@RequestBody Course course){
-        return course.getLessons();
+    @GetMapping("/getLessons/{courseId}")
+    public List<Lesson> getLessons(@RequestParam("courseId") Long courseId){
+        return courseService.getLessons(courseId);
     }
 
-    @GetMapping("/getEnrolled")
-    public List<Student> getStudentList(@RequestBody Course course){
-        return courseService.getStudentList(course);
+    @GetMapping("/getEnrolled/{courseId}")
+    public List<Student> getStudentList(@RequestParam("courseId") Long courseId){
+        return courseService.getStudentList(courseId);
     }
 
     @GetMapping("/getCourses")

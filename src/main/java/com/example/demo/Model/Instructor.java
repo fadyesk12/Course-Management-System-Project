@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,10 +37,12 @@ public class Instructor extends User {
     private String specialization;
     @Getter
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Course> createdCourses = new HashSet<>();
     //    private Map<Course, List<Question>> questionBanks;
     @Getter
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<InstructorNotification> notifications;
 
     public Instructor(Long id, String name, String email, String password) {
@@ -77,5 +81,18 @@ public class Instructor extends User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @JsonProperty("createdCourses")
+    public List<String> getCourseTitles() {
+        try {
+            List<String> courseTitles = new ArrayList<>();
+            for (Course course : createdCourses) {
+                courseTitles.add(course.getTitle());
+            }
+            return courseTitles;
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 }

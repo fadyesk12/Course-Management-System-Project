@@ -13,16 +13,22 @@ import com.example.demo.Repositories.CourseRepository;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final LessonRepository lessonRepository;
 
     @Autowired
     public CourseService(CourseRepository courseRepository, LessonRepository lessonRepository) {
         this.courseRepository = courseRepository;
+        this.lessonRepository = lessonRepository;
     }
 
 
+    public List<Lesson> getLessons(Long courseId){
+        return lessonRepository.findByCourse_Id(courseId);
+    }
 
-
-    public List<Student> getStudentList(Course course){
+    public List<Student> getStudentList(Long courseId){
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalStateException("Course not found."));
         return course.getEnrolledStudents().stream().toList();
     }
     public List<Course> getAllCourses(){

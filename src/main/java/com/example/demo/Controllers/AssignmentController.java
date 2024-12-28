@@ -15,7 +15,7 @@ import com.example.demo.Model.Assignment;
 import com.example.demo.Services.AssignmentService;
 
 @RestController
-@RequestMapping("/assignments")
+@RequestMapping("api/lms/assignments")
 public class AssignmentController {
     private final AssignmentService assignmentService;
 
@@ -24,10 +24,10 @@ public class AssignmentController {
         this.assignmentService = assignmentService;
     }
 
-    @PostMapping
-    public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
+    @PostMapping("/create/{courseId}")
+    public ResponseEntity<Assignment> createAssignment(@PathVariable("courseId") Long courseId, @RequestBody Assignment assignment) {
         try {
-            Assignment createdAssignment = assignmentService.createAssignment(assignment);
+            Assignment createdAssignment = assignmentService.createAssignment(courseId, assignment);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAssignment);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

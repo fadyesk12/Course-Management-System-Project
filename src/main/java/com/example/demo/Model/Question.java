@@ -1,11 +1,14 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -21,6 +24,7 @@ public class Question {
     private Long  id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
@@ -36,5 +40,13 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
+
+    @JsonProperty("quiz")
+    public String getQuizTitle() {
+        return quiz != null ? quiz.getTitle() : null;
+    }
+
+
+
 
 }

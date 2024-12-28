@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.Controllers.InstructorContoller;
+import com.example.demo.Controllers.InstructorController;
 import com.example.demo.Model.Instructor;
 import com.example.demo.Model.InstructorNotification;
 import com.example.demo.Repositories.InstructorRepository;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InstructorTest {
 
     @Autowired
-    private InstructorContoller instructorContoller;
+    private InstructorController instructorController;
 
     @Autowired
     private InstructorRepository instructorRepository;
@@ -33,7 +33,7 @@ public class InstructorTest {
         InstructorNotification notification2 = new InstructorNotification("students came", instructor);
         instructorNotificationRepository.save(notification1);
         instructorNotificationRepository.save(notification2);
-        List<InstructorNotification> notifications = instructorContoller.retrieveInstructorNotifications(instructor.getId());
+        List<InstructorNotification> notifications = instructorController.retrieveInstructorNotifications(instructor.getId()).getBody();
         assertNotNull(notifications);
         assertEquals(2, notifications.size());
         assertEquals("course soon", notifications.get(0).getMessage());

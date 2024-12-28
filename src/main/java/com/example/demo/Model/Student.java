@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +46,7 @@ public class Student extends User {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
+    @JsonIgnore
     private Set<Course> enrolledCourses = new HashSet<>();
 
 
@@ -54,11 +57,13 @@ public class Student extends User {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
+    @JsonIgnore
     private Set<Lesson> attendedLessons;
 //    private Map<String, Double> quizScores;
 
     @Getter
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AssignmentSubmission> assignmentsSubmitted;
 
 
@@ -66,6 +71,7 @@ public class Student extends User {
 
     @Getter
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<StudentNotification> notifications;
 
     public Student(Long id, String name, String email, String password)  {
@@ -117,4 +123,43 @@ public class Student extends User {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentAnswer> studentAnswers;
+
+    @JsonProperty("enrolledCourses")
+    public List<String> getEnrolledCoursesTitle() {
+        try {
+            List<String> enrolledCoursesTitle = new ArrayList<>();
+            for (Course course : enrolledCourses) {
+                enrolledCoursesTitle.add(course.getTitle());
+            }
+            return enrolledCoursesTitle;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @JsonProperty("attendedLessons")
+    public List<String> getAttendedLessonsTitle() {
+        try {
+            List<String> attendedLessonsTitle = new ArrayList<>();
+            for (Lesson lesson : attendedLessons) {
+                attendedLessonsTitle.add(lesson.getTitle());
+            }
+            return attendedLessonsTitle;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @JsonProperty("assignmentsSubmitted")
+    public List<String> getAssignmentsSubmittedPaths() {
+        try {
+            List<String> assignmentsSubmittedIds = new ArrayList<>();
+            for (AssignmentSubmission assignmentSubmission : assignmentsSubmitted) {
+                assignmentsSubmittedIds.add(assignmentSubmission.getSubmissionPath());
+            }
+            return assignmentsSubmittedIds;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 }

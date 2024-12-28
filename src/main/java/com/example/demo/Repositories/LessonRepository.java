@@ -9,10 +9,8 @@ import java.util.Optional;
 import java.util.List;
 
 @Repository
-public interface LessonRepository extends JpaRepository<Lesson,Long>{
-    Optional <Lesson> findByid(Long id);
-    List<Lesson> findByCourseId(Long courseId);
-
+public interface LessonRepository extends JpaRepository<Lesson, Long> {
+    Optional<Lesson> findById(Long id);
+    List<Lesson> findByCourse_Id(Long courseId); // Correct query method
     Optional<Lesson> findByOTP(Long OTP);
-    
 }

@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 public interface StudentNotificationRepository extends JpaRepository<StudentNotification,Long>{
     StudentNotification findByid(Long id);
-    List<StudentNotification> findByStudentId(Long courseId);
+    Optional<List<StudentNotification>> findByStudentId(Long studentId);
 }

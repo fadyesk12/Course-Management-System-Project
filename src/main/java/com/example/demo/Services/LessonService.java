@@ -18,9 +18,6 @@ public class LessonService {
     }
     public Lesson AddLesson(Long courseId, Lesson lesson){
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId)); // making sure the course already exists
-        if (lessonRepository.existsById(lesson.getId())){
-            throw new IllegalStateException("Lesson already added");
-        }
         lesson.setCourse(course);
         lesson.setOTP((long) ((Math.random() * 1000000) % 1000000));
         course.getLessons().add(lesson);
@@ -31,19 +28,22 @@ public class LessonService {
     public void deleteLesson(Long courseId, Long lessonId){
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId)); // making sure the course already exists
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson not found with id: " + lessonId)); // making sure the lesson already exists
+        lessonRepository.delete(lesson);
         course.getLessons().remove(lesson);
         courseRepository.save(course);
     }
-    public void editLesson(Long courseId, Long lessonId, Lesson lesson){
+    public Lesson editLesson(Long courseId, Long lessonId, Lesson lesson){
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found with id: " + courseId)); // making sure the course already exists
         Lesson lesson1 = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson not found with id: " + lessonId)); // making sure the lesson already exists
         lesson1.setTitle(lesson.getTitle());
         lesson1.setDate(lesson.getDate());
         lessonRepository.save(lesson1);
+        return lesson1;
     }
-    public void generateOTP(Long lessonId){
+    public Lesson generateOTP(Long lessonId){
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson not found with id: " + lessonId)); // making sure the lesson already exists
         lesson.setOTP((long) ((Math.random() * 1000000) % 1000000));
+        return lessonRepository.save(lesson);
     }
 
 }

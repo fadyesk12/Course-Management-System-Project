@@ -10,7 +10,6 @@ import com.example.demo.Repositories.StudentNotificationRepository;
 import com.example.demo.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -31,8 +30,8 @@ public class EnrollmentService {
         this.instructorNotificationRepository = instructorNotificationRepository;
     }
 
-    @Transactional
-    public void enrollStudentInCourse(Long studentId, Long courseId) {
+
+    public Course enrollStudentInCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student not found."));
         Course course = courseRepository.findById(courseId)
@@ -58,9 +57,10 @@ public class EnrollmentService {
         Inotification.setMessage("Added Student to course.");
         Inotification.setInstructor(course.getInstructor());
         instructorNotificationRepository.save(Inotification);
+        return course;
     }
 
-    @Transactional
+
     public void unenrollStudentFromCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("Student not found."));

@@ -30,7 +30,7 @@ public class StudentTest {
         Student student2 = new Student("karim", "karim@example.com", "password456");
         studentRepository.save(student1);
         studentRepository.save(student2);
-        List<Student> students = studentContoller.getAllStudents();
+        List<Student> students = studentContoller.getAllStudents().getBody();
         assertNotNull(students);
         assertTrue(students.size() >= 2);
     }
@@ -52,7 +52,7 @@ public class StudentTest {
         notification2.setStudent(student);
         studentNotificationRepository.save(notification1);
         studentNotificationRepository.save(notification2);
-        List<StudentNotification> notifications = studentContoller.retrievStudentNotifications(student.getId());
+        List<StudentNotification> notifications = studentContoller.retrievStudentNotifications(student.getId()).getBody();
         assertNotNull(notifications);
         assertEquals(2, notifications.size());
         assertEquals("Assignment", notifications.get(0).getMessage());

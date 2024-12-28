@@ -23,7 +23,7 @@ public class InstructorCourseService {
     }
 
 
-    public void createCourse(Long instructorId, Course course) {
+    public Course createCourse(Long instructorId, Course course) {
         Instructor instructor = instructorRepository.findById(instructorId)
                 .orElseThrow(() -> new IllegalStateException("Instructor not found."));
         if (instructor.getCreatedCourses().contains(course)) {
@@ -32,7 +32,7 @@ public class InstructorCourseService {
         course.setInstructor(instructor);
         instructor.getCreatedCourses().add(course);
         instructorRepository.save(instructor);
-        courseRepository.save(course);
+        return course;
     }
 
 //    public int getQuizGrade(Long courseId, Long studentId, Long quizId) {

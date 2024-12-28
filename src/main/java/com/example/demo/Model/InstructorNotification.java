@@ -2,6 +2,8 @@ package com.example.demo.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +28,16 @@ public class InstructorNotification {
     @Setter
     @ManyToOne
     @JoinColumn(name = "instructor_id")
+    @JsonIgnore
     private Instructor instructor;
+
+    public InstructorNotification(String message, Instructor instructor){
+        this.instructor = instructor;
+        this.message = message;
+    }
+
+    @JsonProperty("instructor")
+    public String getInstructorName() {
+        return instructor != null ? instructor.getName() : null;
+    }
 }

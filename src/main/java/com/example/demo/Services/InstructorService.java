@@ -20,7 +20,6 @@ import java.util.Optional;
 public class InstructorService {
     private final InstructorRepository instructorRepository;
     private final InstructorNotificationRepository instructorNotificationRepository;
-
     @Autowired
     public InstructorService(InstructorRepository instructorRepository, InstructorNotificationRepository instructorNotificationRepository) {
         this.instructorRepository = instructorRepository;
